@@ -3,6 +3,9 @@ import chokidar from 'chokidar'
 import * as http from 'http'
 import path from 'path'
 
+process.on('unhandledRejection', console.error)
+process.on('uncaughtException', console.error)
+
 const isDev = process.env.NODE_ENV !== 'production'
 
 const run = async () => {
