@@ -1,0 +1,29 @@
+{
+  "name": "express-react-ts-template",
+  "version": "1.0.0",
+  "license": "MIT",
+  "devDependencies": {
+    "@parcel/transformer-vue": "^2.2.1",
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.15",
+    "chokidar": "^3.5.3",
+    "concurrently": "^7.0.0",
+    "parcel": "^2.2.1",
+    "prettier": "^2.5.1",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.2",
+    "vue": "3",
+    "vue-router": "^4.0.12"
+  },
+  "scripts": {
+    "build": "yarn server:build && yarn client:build",
+    "dev": "concurrently \"yarn server:dev\" \"yarn client:dev\"",
+    "server:dev": "ts-node src",
+    "client:dev": "parcel watch client/app.html --dist-dir dist/client",
+    "server:build": "parcel build client/app.html --dist-dir dist/client"
+  }
+}
