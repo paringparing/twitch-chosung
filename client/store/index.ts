@@ -4,11 +4,13 @@ import axios from 'axios'
 export type User = {
   id: string
   channel: string
+  avatar: string | null
+  nick: string
 }
 
 export default createStore({
   state: {
-    user: null,
+    user: null as null | User,
     loading: true,
   },
   getters: {

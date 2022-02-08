@@ -31,6 +31,7 @@ passport.use(
           id: profile.id,
           channel: profile.login,
           avatar: profile.profile_image_url,
+          nick: profile.display_name,
         },
         where: {
           id: profile.id,
@@ -38,6 +39,7 @@ passport.use(
         update: {
           channel: profile.login,
           avatar: profile.profile_image_url,
+          nick: profile.display_name,
         },
       })
 
