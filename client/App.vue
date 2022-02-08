@@ -25,3 +25,13 @@ export default {
   },
 }
 </script>
+
+<style>
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+* {
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+}
+</style>
