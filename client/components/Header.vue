@@ -1,5 +1,5 @@
 <template>
-  <div class="px-4 py-6">
+  <div class="px-8 py-6">
     <div class="container mx-auto items-center flex">
       <div class="text-3xl font-bold">초성 퀴즈</div>
       <div class="flex-grow" />
