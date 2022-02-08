@@ -10,6 +10,7 @@
 <script lang="ts">
 import { useStore } from 'vuex'
 import { computed } from 'vue'
+import { createToast } from 'mosha-vue-toastify'
 
 export default {
   setup() {
@@ -18,10 +19,16 @@ export default {
   },
   created() {
     const store = useStore()
-    store.dispatch('fetchUser').then(() => {
-      store.commit('loading', false)
-      console.log('end')
-    })
+    store
+      .dispatch('fetchUser')
+      .then(() => store.dispatch('tmi', store.state.user?.channel))
+      .then(() => {
+        createToast('트위치 채팅 연결 성공', {
+          type: 'success',
+        })
+        store.commit('loading', false)
+        console.log('end')
+      })
   },
 }
 </script>
