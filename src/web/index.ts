@@ -30,12 +30,14 @@ passport.use(
         create: {
           id: profile.id,
           channel: profile.login,
+          avatar: profile.profile_image_url,
         },
         where: {
           id: profile.id,
         },
         update: {
           channel: profile.login,
+          avatar: profile.profile_image_url,
         },
       })
 
