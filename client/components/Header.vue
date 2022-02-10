@@ -3,7 +3,7 @@
     <div class="container mx-auto items-center flex">
       <div class="text-3xl font-bold">초성 퀴즈</div>
       <div class="flex-grow" />
-      <div class="flex gap-4 items-center">
+      <div class="flex gap-4 items-center cursor-pointer" @click="logout">
         <img
           :src="user.avatar"
           alt=""
@@ -28,6 +28,11 @@ export default {
     return {
       user: computed(() => store.state.user as User),
     }
+  },
+  methods: {
+    logout: () => {
+      window.location.pathname = '/auth/logout'
+    },
   },
 }
 </script>
