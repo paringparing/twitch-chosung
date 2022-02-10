@@ -16,6 +16,11 @@ const routes: RouteRecordRaw[] = [
     name: 'Play',
     component: () => import('./views/Play.vue'),
   },
+  {
+    path: '/result',
+    name: 'Result',
+    component: () => import('./views/Result.vue'),
+  },
 ]
 
 export const router = createRouter({
