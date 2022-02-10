@@ -11,6 +11,7 @@ import { useStore } from 'vuex'
 import { Word } from '../types'
 import Header from '../components/Header.vue'
 import { createToast } from 'mosha-vue-toastify'
+import { ChatUserstate, Client } from 'tmi.js'
 
 export default defineComponent({
   components: { Header },
@@ -19,13 +20,29 @@ export default defineComponent({
 
     return {
       wordSet: computed<Word[]>(() => store.state.wordSet),
+      tmi: computed<Client>(() => store.state.tmi),
     }
   },
   mounted() {
     if (!this.wordSet) {
       createToast('단어 데이터가 설정되지 않았습니다.', { type: 'danger' })
       this.$router.push('/')
+      return
     }
+    this.tmi.on('message', this.onChat)
+  },
+  unmounted() {
+    this.tmi.removeListener('message', this.onChat)
+  },
+  methods: {
+    onChat(
+      channel: string,
+      userstate: ChatUserstate,
+      message: string,
+      self: boolean
+    ) {
+      console.log(message)
+    },
   },
 })
 </script>
