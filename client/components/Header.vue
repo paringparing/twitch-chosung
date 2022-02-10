@@ -3,7 +3,11 @@
     <div class="container mx-auto items-center flex">
       <div class="text-3xl font-bold">초성 퀴즈</div>
       <div class="flex-grow" />
-      <div class="flex gap-4 items-center cursor-pointer" @click="logout">
+      <div
+        class="flex gap-4 items-center cursor-pointer"
+        @click="logout"
+        v-if="user"
+      >
         <img
           :src="user.avatar"
           alt=""
@@ -16,11 +20,11 @@
 </template>
 
 <script lang="ts">
-import { computed } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import { User } from '../store'
 
-export default {
+export default defineComponent({
   name: 'Header',
   setup() {
     const store = useStore()
@@ -34,7 +38,7 @@ export default {
       window.location.pathname = '/auth/logout'
     },
   },
-}
+})
 </script>
 
 <style scoped></style>

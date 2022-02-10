@@ -31,8 +31,7 @@ export default createStore({
         .get('/api/user')
         .catch(() => ({ data: null }))
       if (!data) {
-        window.location.pathname = '/auth/login'
-        return
+        commit('user', null)
       } else {
         commit('user', data)
       }

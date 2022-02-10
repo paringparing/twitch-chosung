@@ -13,7 +13,7 @@ router.get(
 
 router.get('/logout', requireAuth, (req, res) => {
   req.logout()
-  res.send('ok')
+  res.redirect('/')
 })
 
 export default router
