@@ -38,6 +38,9 @@ export default {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+body {
+  @apply select-none;
+}
 * {
   font-family: 'Spoqa Han Sans Neo', sans-serif;
 }
