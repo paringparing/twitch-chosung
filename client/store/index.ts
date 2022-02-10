@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
 import { Client } from 'tmi.js'
+import { Word } from '../types'
 
 export type User = {
   id: string
@@ -14,16 +15,19 @@ export default createStore({
     user: null as null | User,
     loading: true,
     tmi: null as Client | null,
+    wordSet: null as Word[] | null,
   },
   getters: {
     user: (state) => state.user,
     loading: (state) => state.loading,
     tmi: (state) => state.tmi,
+    wordSet: (state) => state.wordSet,
   },
   mutations: {
     user: (state, payload) => (state.user = payload),
     loading: (state, payload) => (state.loading = payload),
     tmi: (state, payload) => (state.tmi = payload),
+    wordSet: (state, payload) => (state.wordSet = payload),
   },
   actions: {
     fetchUser: async ({ commit }) => {

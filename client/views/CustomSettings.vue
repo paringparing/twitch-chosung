@@ -26,23 +26,25 @@
               <font-awesome-icon icon="minus" />
             </div>
           </div>
-          <div
-            @click="add"
-            class="h-12 border rounded-md flex items-center justify-center cursor-pointer"
-          >
-            <font-awesome-icon icon="plus" />
-          </div>
-          <div
-            @click="save"
-            class="h-12 border rounded-md flex items-center justify-center cursor-pointer"
-          >
-            저장
-          </div>
-          <div
-            @click="play"
-            class="h-12 border rounded-md flex items-center justify-center cursor-pointer"
-          >
-            시작
+          <div class="flex gap-4">
+            <div
+              @click="save"
+              class="h-12 border rounded-md flex items-center justify-center cursor-pointer flex-grow"
+            >
+              저장
+            </div>
+            <div
+              @click="play"
+              class="h-12 rounded-md flex items-center justify-center cursor-pointer flex-grow border"
+            >
+              시작
+            </div>
+            <div
+              @click="add"
+              class="h-12 w-12 border rounded-md flex items-center justify-center cursor-pointer"
+            >
+              <font-awesome-icon icon="plus" />
+            </div>
           </div>
         </div>
       </div>
@@ -54,6 +56,8 @@
 import Header from '../components/Header.vue'
 import { defineComponent } from 'vue'
 import { Word } from '../types'
+import { createToast } from 'mosha-vue-toastify'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   components: { Header },
@@ -66,6 +70,10 @@ export default defineComponent({
       words,
     }
   },
+  setup() {
+    const store = useStore()
+    return { store }
+  },
   methods: {
     add() {
       this.words.push({ word: '', hint: '' })
@@ -77,7 +85,16 @@ export default defineComponent({
       localStorage.custom_words = JSON.stringify(this.words)
     },
     play() {
-      alert('start')
+      if (!this.words.length) {
+        createToast('최소 1개의 단어가 필요합니다', { type: 'danger' })
+        return
+      }
+      if (this.words.find((x) => !x.word || !x.hint)) {
+        createToast('불완전한 단어 설정이 존재합니다', { type: 'danger' })
+        return
+      }
+      this.store.commit('wordSet', this.words)
+      this.$router.push('/play')
     },
   },
 })
