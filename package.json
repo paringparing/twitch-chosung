@@ -38,6 +38,7 @@
     "passport": "^0.5.2",
     "passport-session": "^1.0.2",
     "passport-twitch-latest": "^1.0.0",
+    "sweetalert2": "^11.4.0",
     "tmi.js": "^1.8.5",
     "vue": "3",
     "vue-router": "^4.0.12",
