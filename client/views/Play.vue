@@ -35,12 +35,7 @@ export default defineComponent({
     this.tmi.removeListener('message', this.onChat)
   },
   methods: {
-    onChat(
-      channel: string,
-      userState: ChatUserstate,
-      message: string,
-      self: boolean
-    ) {
+    onChat(channel: string, userState: ChatUserstate, message: string) {
       console.log(message)
     },
   },
