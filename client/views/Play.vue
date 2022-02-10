@@ -37,7 +37,7 @@ export default defineComponent({
   methods: {
     onChat(
       channel: string,
-      userstate: ChatUserstate,
+      userState: ChatUserstate,
       message: string,
       self: boolean
     ) {
