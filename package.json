@@ -32,6 +32,6 @@
   },
   "scripts": {
     "dev": "parcel client/app.html --host localhost",
-    "build": "parcel build client/app.html dist/client"
+    "build": "parcel build client/app.html"
   }
 }
