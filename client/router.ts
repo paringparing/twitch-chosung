@@ -1,6 +1,6 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import {createRouter, createWebHashHistory, RouterOptions} from 'vue-router'
 
-const routes: RouteRecordRaw[] = [
+const routes = [
   {
     path: '/',
     name: 'Home',
@@ -24,6 +24,6 @@ const routes: RouteRecordRaw[] = [
 ]
 
 export const router = createRouter({
-  history: createWebHistory(),
-  routes,
-})
+  history: createWebHashHistory(),
+  routes: routes,
+} as RouterOptions)
