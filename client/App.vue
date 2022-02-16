@@ -8,7 +8,7 @@
       <Header />
       <div class="flex-grow flex justify-center items-center">
         <div>
-          <input v-model="channel" type="text" placeholder="채널 이름" class="border rounded-md p-2">
+          <input v-model="channel" type="text" placeholder="트위치 채널 아이디" class="border rounded-md p-2">
           <div @click.stop="setChannel" class="border cursor-pointer border-blue-300 text-blue-300 rounded-md p-2 text-center mt-2">저장하기</div>
         </div>
       </div>
