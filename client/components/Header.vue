@@ -8,12 +8,7 @@
         @click="logout"
         v-if="user"
       >
-        <img
-          :src="user.avatar"
-          alt=""
-          class="w-12 h-12 rounded-full ring ring-black ring-opacity-10"
-        />
-        <div class="text-lg font-light">{{ user.nick }}</div>
+        <div class="text-lg font-light">{{ user }}</div>
       </div>
     </div>
   </div>
@@ -22,7 +17,6 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
-import { User } from '../store'
 
 export default defineComponent({
   name: 'Header',
@@ -30,12 +24,14 @@ export default defineComponent({
     const store = useStore()
 
     return {
-      user: computed(() => store.state.user as User),
+      user: computed(() => store.state.channel as string|null),
+      store
     }
   },
   methods: {
     logout: () => {
-      window.location.pathname = '/auth/logout'
+      delete localStorage.channel
+      window.location.pathname = '/'
     },
   },
 })

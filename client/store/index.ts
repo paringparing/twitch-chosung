@@ -1,63 +1,40 @@
 import { createStore } from 'vuex'
-import axios from 'axios'
 import { Client } from 'tmi.js'
 import { Word } from '../types'
-
-export type User = {
-  id: string
-  channel: string
-  avatar: string | null
-  nick: string
-}
 
 export type History = { user: string; word: string }[]
 
 export default createStore({
   state: {
-    user: null as null | User,
+    channel: null as string,
     loading: true,
     tmi: null as Client | null,
     wordSet: null as Word[] | null,
-    history: [
-      {
-        user: '파링___',
-        word: '샌즈',
-      },
-      {
-        user: '파링___',
-        word: '테스트',
-      },
-      {
-        user: '키뮤',
-        word: '테스트2',
-      },
-    ] as History,
+    history: [] as History,
   },
   getters: {
-    user: (state) => state.user,
+    channel: (state) => state.channel,
     loading: (state) => state.loading,
     tmi: (state) => state.tmi,
     wordSet: (state) => state.wordSet,
     history: (state) => state.history,
   },
   mutations: {
-    user: (state, payload) => (state.user = payload),
+    channel: (state, payload) => (state.channel = payload),
     loading: (state, payload) => (state.loading = payload),
     tmi: (state, payload) => (state.tmi = payload),
     wordSet: (state, payload) => (state.wordSet = payload),
     history: (state, payload) => (state.history = payload),
   },
   actions: {
-    fetchUser: async ({ commit }) => {
-      const { data } = await axios
-        .get('/api/user')
-        .catch(() => ({ data: null }))
+    loadChannel: async ({ commit }) => {
+      const data = localStorage.channel
       if (!data) {
-        commit('user', null)
+        commit('channel', null)
       } else {
-        commit('user', data)
+        commit('channel', data)
       }
-      console.log('loaded user')
+      console.log('loaded channel')
     },
     tmi: async ({ state, commit }, payload: string) => {
       if (state.tmi) {

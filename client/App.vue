@@ -7,14 +7,10 @@
     <div v-else class="min-h-screen flex flex-col">
       <Header />
       <div class="flex-grow flex justify-center items-center">
-        <a
-          :href="'/auth/login'"
-          class="py-4 px-8 flex rounded-md gap-8 items-center justify-center"
-          style="background: #6441a5; color: #fff"
-        >
-          <font-awesome-icon :icon="['fab', 'twitch']" size="2x" />
-          <div class="font-bold text-xl">트위치로 로그인하기</div>
-        </a>
+        <div>
+          <input v-model="channel" type="text" placeholder="채널 이름" class="border rounded-md p-2">
+          <div @click.stop="setChannel" class="border cursor-pointer border-blue-300 text-blue-300 rounded-md p-2 text-center mt-2">저장하기</div>
+        </div>
       </div>
     </div>
   </div>
@@ -24,7 +20,6 @@
 import { useStore } from 'vuex'
 import { computed } from 'vue'
 import { createToast } from 'mosha-vue-toastify'
-import { User } from './store'
 import Header from './components/Header.vue'
 
 export default {
@@ -33,15 +28,20 @@ export default {
     const store = useStore()
     return {
       loading: computed(() => store.state.loading),
-      user: computed<User | null>(() => store.state.user),
+      user: computed<string | null>(() => store.state.channel),
+    }
+  },
+  data() {
+    return {
+      channel: ''
     }
   },
   created() {
     const store = useStore()
-    store.dispatch('fetchUser').then(() => {
-      if (!store.state.user) return store.commit('loading', false)
+    store.dispatch('loadChannel').then(() => {
+      if (!store.state.channel) return store.commit('loading', false)
 
-      store.dispatch('tmi', store.state.user?.channel).then(() => {
+      store.dispatch('tmi', store.state.channel).then(() => {
         createToast('트위치 채팅 연결 성공', {
           type: 'success',
         })
@@ -50,6 +50,12 @@ export default {
       })
     })
   },
+  methods: {
+    setChannel() {
+      localStorage.channel = this.channel
+      window.location.reload()
+    }
+  }
 }
 </script>
 
