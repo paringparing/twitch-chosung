@@ -7,10 +7,17 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { fab } from '@fortawesome/free-brands-svg-icons'
+import VueGtag from 'vue-gtag'
 
 library.add(fas, fab)
 
 const app = createApp(App)
+
+app.use(VueGtag, {
+    config: {
+        id: 'G-YEZCSY4S97'
+    }
+})
 
 app.component('font-awesome-icon', FontAwesomeIcon)
 
