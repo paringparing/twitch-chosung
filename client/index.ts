@@ -15,7 +15,7 @@ const app = createApp(App)
 
 app.use(VueGtag, {
     config: {
-        id: 'G-YEZCSY4S97'
+        id: 'UA-220521795-1'
     }
 })
 
