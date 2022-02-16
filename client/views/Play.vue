@@ -13,7 +13,10 @@
           {{ getChosung(char) }}
         </div>
       </div>
-      <div class="mt-12 text-5xl font-bold">{{ currentWord.hint }}</div>
+      <div class="mt-8 text-4xl font-bold" v-if="showHint">{{ currentWord.hint }}</div>
+      <div v-else @click="setShowHint" class="mt-8 text-3xl cursor-pointer">
+        클릭해서 힌트 보기
+      </div>
       <div
         v-if="matchedUser"
         class="fixed left-0 top-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50"
@@ -56,8 +59,8 @@ export default defineComponent({
     store.state.history = []
 
     return {
-      wordSet: computed<Word[]>(() => store.state.wordSet),
-      tmi: computed<Client>(() => store.state.tmi),
+      wordSet: computed<Word[]>(() => store.state.wordSet as Word[]),
+      tmi: computed<Client>(() => store.state.tmi as Client),
       history: computed<History>(() => store.state.history),
     }
   },
@@ -73,6 +76,7 @@ export default defineComponent({
       currentTurn: 0,
       ready: false,
       matchedUser: null as null | { username: string },
+      showHint: false
     }
   },
   mounted() {
@@ -110,8 +114,12 @@ export default defineComponent({
         return
       }
       this.matchedUser = null
+      this.showHint = false
       this.currentTurn++
     },
+    setShowHint() {
+      this.showHint = true
+    }
   },
 })
 </script>
