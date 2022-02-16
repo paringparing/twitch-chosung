@@ -31,7 +31,7 @@
     "vuex": "^4.0.2"
   },
   "scripts": {
-    "dev": "parcel client/app.html --host localhost",
-    "build": "parcel build client/app.html"
+    "dev": "parcel client/index.html --host localhost",
+    "build": "parcel build client/index.html"
   }
 }
