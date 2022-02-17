@@ -32,7 +32,7 @@
             {{ currentWord.word }}
           </div>
           <div
-            class="border text-center p-4 text-2xl mt-8 w-full cursor-pointer"
+            class="border-2 text-center p-4 text-2xl mt-8 w-full cursor-pointer"
             @click="nextWord"
           >
             {{ currentTurn + 1 === wordSet.length ? '결과 보기' : '다음' }}
