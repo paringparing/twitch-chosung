@@ -9,18 +9,18 @@
               <input
                 v-model="word.word"
                 type="text"
-                class="border rounded-md flex-grow py-2 px-3 outline-none h-12"
+                class="border rounded-md flex-grow py-2 px-3 outline-none h-12 border-2"
                 placeholder="단어"
               />
               <input
                 v-model="word.hint"
                 type="text"
-                class="border rounded-md flex-grow py-2 px-3 outline-none h-12"
+                class="border rounded-md flex-grow py-2 px-3 outline-none h-12 border-2"
                 placeholder="힌트"
               />
             </div>
             <div
-              class="border h-12 w-12 rounded-md flex items-center justify-center cursor-pointer"
+              class="border h-12 w-12 rounded-md flex items-center justify-center cursor-pointer border-2"
               @click="remove(word)"
             >
               <font-awesome-icon icon="minus" />
@@ -29,19 +29,19 @@
           <div class="flex gap-4">
             <div
               @click="save"
-              class="h-12 border rounded-md flex items-center justify-center cursor-pointer flex-grow"
+              class="h-12 border rounded-md flex items-center justify-center cursor-pointer flex-grow border-2"
             >
               저장
             </div>
             <div
               @click="play"
-              class="h-12 rounded-md flex items-center justify-center cursor-pointer flex-grow border"
+              class="h-12 rounded-md flex items-center justify-center cursor-pointer flex-grow border border-2"
             >
               시작
             </div>
             <div
               @click="add"
-              class="h-12 w-12 border rounded-md flex items-center justify-center cursor-pointer"
+              class="h-12 w-12 border rounded-md flex items-center justify-center cursor-pointer border-2"
             >
               <font-awesome-icon icon="plus" />
             </div>

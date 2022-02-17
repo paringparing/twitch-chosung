@@ -1,4 +1,4 @@
-import {createRouter, createWebHashHistory, RouterOptions} from 'vue-router'
+import { createRouter, createWebHashHistory, RouterOptions } from 'vue-router'
 
 const routes = [
   {
@@ -20,6 +20,11 @@ const routes = [
     path: '/result',
     name: 'Result',
     component: () => import('./views/Result.vue'),
+  },
+  {
+    path: '/suggest',
+    name: 'Suggest',
+    component: () => import('./views/SuggestedWordSelection.vue'),
   },
 ]
 

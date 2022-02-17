@@ -6,7 +6,7 @@ export type History = { user: string; word: string }[]
 
 export default createStore({
   state: {
-    channel: null as string,
+    channel: null as unknown as string,
     loading: true,
     tmi: null as Client | null,
     wordSet: null as Word[] | null,
