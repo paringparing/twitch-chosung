@@ -14,9 +14,9 @@ library.add(fas, fab)
 const app = createApp(App)
 
 app.use(VueGtag, {
-    config: {
-        id: 'G-GZ7KYSY3TM'
-    }
+  config: {
+    id: 'G-GZ7KYSY3TM',
+  },
 })
 
 app.component('font-awesome-icon', FontAwesomeIcon)

@@ -34,5 +34,8 @@
   "scripts": {
     "dev": "parcel client/index.html --host localhost",
     "build": "parcel build client/index.html"
+  },
+  "alias": {
+    "process": false
   }
 }

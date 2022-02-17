@@ -71,6 +71,11 @@ import Hangul from 'hangul-js'
 import { History } from '../store'
 import { event } from 'vue-gtag'
 
+const correctSound = new Audio(
+  // @ts-ignore
+  new URL('../assets/sfx/correct.wav', import.meta.url).toString()
+)
+
 export default defineComponent({
   components: { Header },
   setup() {
@@ -122,6 +127,7 @@ export default defineComponent({
         const username = (userState['display-name'] ??
           userState.username) as string
         this.matchedUser = { username }
+        correctSound.play()
         this.history.push({
           user: username,
           word: this.currentWord.word,
