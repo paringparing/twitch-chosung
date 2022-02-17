@@ -43,7 +43,7 @@
                 {{ parseInt(index) + 1 }}
               </td>
               <td class="h-12 px-4 border-r">
-                {{ item.user }}
+                {{ item.user ?? '없음' }}
               </td>
               <td class="h-12 px-4">
                 {{ item.word }}
@@ -85,12 +85,12 @@ export default defineComponent({
   computed: {
     ranking() {
       const vm = this as unknown as { history: History }
-      const users = Array.from(new Set(vm.history.map((x) => x.user))).map(
-        (x: string) => ({
-          user: x,
-          count: vm.history.filter((y) => y.user === x).length,
-        })
-      )
+      const users = Array.from(
+        new Set(vm.history.filter((x) => x.user).map((x) => x.user!))
+      ).map((x: string) => ({
+        user: x,
+        count: vm.history.filter((y) => y.user === x).length,
+      }))
       return _.sortBy(users, 'count').reverse()
     },
   },

@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="flex flex-col h-screen">
     <Header />
-    <div class="flex flex-col items-center mt-16" v-if="ready">
+    <div class="flex flex-grow flex-col items-center mt-16" v-if="ready">
       <div class="text-6xl font-black">
         {{ currentTurn + 1 }} / {{ wordSet.length }} 라운드
       </div>
@@ -10,7 +10,7 @@
           class="border border-4 border-black w-32 h-32 flex font-bold items-center justify-center text-8xl"
           v-for="char in currentWord.word.split('')"
         >
-          {{ getChosung(char) }}
+          {{ isAnswerVisible ? char : getChosung(char) }}
         </div>
       </div>
       <div class="mt-8 text-4xl font-bold" v-if="showHint">
@@ -37,6 +37,23 @@
           >
             {{ currentTurn + 1 === wordSet.length ? '결과 보기' : '다음' }}
           </div>
+        </div>
+      </div>
+      <div class="flex-grow"></div>
+      <div class="flex w-full justify-end p-4">
+        <div
+          v-if="!isAnswerVisible"
+          @click="showAnswer"
+          class="bg-red-500 text-white py-4 px-6 rounded-lg cursor-pointer hover:brightness-90 transition-all active:brightness-75"
+        >
+          정답 보기
+        </div>
+        <div
+          v-else
+          @click="nextWord"
+          class="bg-green-500 text-white py-4 px-6 rounded-lg cursor-pointer hover:brightness-90 transition-all active:brightness-75"
+        >
+          {{ currentTurn + 1 === wordSet.length ? '결과 보기' : '다음' }}
         </div>
       </div>
     </div>
@@ -80,6 +97,7 @@ export default defineComponent({
       ready: false,
       matchedUser: null as null | { username: string },
       showHint: false,
+      isAnswerVisible: false,
     }
   },
   mounted() {
@@ -120,10 +138,19 @@ export default defineComponent({
       }
       this.matchedUser = null
       this.showHint = false
+      this.isAnswerVisible = false
       this.currentTurn++
     },
     setShowHint() {
       this.showHint = true
+    },
+    showAnswer() {
+      this.history.push({
+        user: null,
+        word: this.currentWord.word,
+      })
+      this.showHint = true
+      this.isAnswerVisible = true
     },
   },
 })

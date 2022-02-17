@@ -2,7 +2,7 @@ import { createStore } from 'vuex'
 import { Client } from 'tmi.js'
 import { Word } from '../types'
 
-export type History = { user: string; word: string }[]
+export type History = { user: string | null; word: string }[]
 
 export default createStore({
   state: {
