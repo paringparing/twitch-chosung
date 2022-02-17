@@ -1,7 +1,9 @@
 <template>
   <div class="px-8 py-6">
     <div class="container mx-auto items-center flex">
-      <div class="text-3xl font-bold">초성 퀴즈</div>
+      <router-link to="/">
+        <div class="text-3xl font-bold">초성 퀴즈</div>
+      </router-link>
       <div class="flex-grow" />
       <div
         class="flex gap-4 items-center cursor-pointer"
@@ -24,8 +26,8 @@ export default defineComponent({
     const store = useStore()
 
     return {
-      user: computed(() => store.state.channel as string|null),
-      store
+      user: computed(() => store.state.channel as string | null),
+      store,
     }
   },
   methods: {
