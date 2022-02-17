@@ -13,7 +13,9 @@
           {{ getChosung(char) }}
         </div>
       </div>
-      <div class="mt-8 text-4xl font-bold" v-if="showHint">{{ currentWord.hint }}</div>
+      <div class="mt-8 text-4xl font-bold" v-if="showHint">
+        {{ currentWord.hint }}
+      </div>
       <div v-else @click="setShowHint" class="mt-8 text-3xl cursor-pointer">
         클릭해서 힌트 보기
       </div>
@@ -50,6 +52,7 @@ import { createToast } from 'mosha-vue-toastify'
 import { ChatUserstate, Client } from 'tmi.js'
 import Hangul from 'hangul-js'
 import { History } from '../store'
+import { event } from 'vue-gtag'
 
 export default defineComponent({
   components: { Header },
@@ -76,7 +79,7 @@ export default defineComponent({
       currentTurn: 0,
       ready: false,
       matchedUser: null as null | { username: string },
-      showHint: false
+      showHint: false,
     }
   },
   mounted() {
@@ -87,9 +90,11 @@ export default defineComponent({
     }
     this.tmi.on('message', this.onChat)
     this.ready = true
+    event('game_start', { channel: this.tmi.getChannels()[0] })
   },
   unmounted() {
     this.tmi.removeListener('message', this.onChat)
+    event('game_end', { channel: this.tmi.getChannels()[0] })
   },
   methods: {
     onChat(channel: string, userState: ChatUserstate, message: string) {
@@ -119,7 +124,7 @@ export default defineComponent({
     },
     setShowHint() {
       this.showHint = true
-    }
+    },
   },
 })
 </script>

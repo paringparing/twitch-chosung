@@ -51,7 +51,7 @@ export default {
     watch(
       () => (this as any).$route,
       () => {
-        event('page_view')
+        event('page_view', { path: window.location.pathname })
       }
     )
     const store = useStore()
@@ -59,7 +59,7 @@ export default {
       if (!store.state.channel) return store.commit('loading', false)
 
       store.dispatch('tmi', store.state.channel).then(() => {
-        event('login', { method: 'Twitch' })
+        event('login', { method: 'Twitch', username: store.state.channel })
         createToast('트위치 채팅 연결 성공', {
           type: 'success',
         })
