@@ -5,9 +5,9 @@
       <div class="text-6xl font-black">
         {{ currentTurn + 1 }} / {{ wordSet.length }} 라운드
       </div>
-      <div class="flex mt-8">
+      <div class="flex mt-8 border-2 border-black">
         <div
-          class="border w-32 h-32 flex font-bold items-center justify-center text-8xl"
+          class="border border-4 border-black w-32 h-32 flex font-bold items-center justify-center text-8xl"
           v-for="char in currentWord.word.split('')"
         >
           {{ getChosung(char) }}
