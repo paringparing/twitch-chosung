@@ -11,12 +11,12 @@
           <input
             v-model="channel"
             type="text"
-            placeholder="채널 이름"
-            class="border rounded-md p-2"
+            placeholder="트위치 ID"
+            class="border border-2 rounded-md p-2 w-64"
           />
           <div
             @click.stop="setChannel"
-            class="border cursor-pointer border-blue-300 text-blue-300 rounded-md p-2 text-center mt-2"
+            class="border border-2 cursor-pointer border-blue-300 text-blue-300 rounded-md p-2 text-center mt-2"
           >
             저장하기
           </div>
