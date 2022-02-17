@@ -34,6 +34,7 @@ export default defineComponent({
     logout: () => {
       delete localStorage.channel
       window.location.pathname = '/'
+      window.location.reload()
     },
   },
 })
