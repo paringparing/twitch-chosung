@@ -58,6 +58,7 @@ import { defineComponent } from 'vue'
 import { Word } from '../types'
 import { createToast } from 'mosha-vue-toastify'
 import { useStore } from 'vuex'
+import _ from 'lodash'
 
 export default defineComponent({
   components: { Header },
@@ -93,7 +94,7 @@ export default defineComponent({
         createToast('불완전한 단어 설정이 존재합니다', { type: 'danger' })
         return
       }
-      this.store.commit('wordSet', this.words)
+      this.store.commit('wordSet', _.shuffle(this.words))
       this.$router.push('/play')
     },
   },
