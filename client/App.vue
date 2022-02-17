@@ -8,8 +8,18 @@
       <Header />
       <div class="flex-grow flex justify-center items-center">
         <div>
-          <input v-model="channel" type="text" placeholder="채널 이름" class="border rounded-md p-2">
-          <div @click.stop="setChannel" class="border cursor-pointer border-blue-300 text-blue-300 rounded-md p-2 text-center mt-2">저장하기</div>
+          <input
+            v-model="channel"
+            type="text"
+            placeholder="채널 이름"
+            class="border rounded-md p-2"
+          />
+          <div
+            @click.stop="setChannel"
+            class="border cursor-pointer border-blue-300 text-blue-300 rounded-md p-2 text-center mt-2"
+          >
+            저장하기
+          </div>
         </div>
       </div>
     </div>
@@ -18,9 +28,10 @@
 
 <script lang="ts">
 import { useStore } from 'vuex'
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import { createToast } from 'mosha-vue-toastify'
 import Header from './components/Header.vue'
+import { event } from 'vue-gtag'
 
 export default {
   components: { Header },
@@ -33,15 +44,22 @@ export default {
   },
   data() {
     return {
-      channel: ''
+      channel: '',
     }
   },
   created() {
+    watch(
+      () => (this as any).$route,
+      () => {
+        event('page_view')
+      }
+    )
     const store = useStore()
     store.dispatch('loadChannel').then(() => {
       if (!store.state.channel) return store.commit('loading', false)
 
       store.dispatch('tmi', store.state.channel).then(() => {
+        event('login', { method: 'Twitch' })
         createToast('트위치 채팅 연결 성공', {
           type: 'success',
         })
@@ -52,10 +70,10 @@ export default {
   },
   methods: {
     setChannel() {
-      localStorage.channel = this.channel
+      localStorage.channel = (this as any).channel
       window.location.reload()
-    }
-  }
+    },
+  },
 }
 </script>
 
