@@ -13,10 +13,21 @@
           {{ isAnswerVisible ? char : getChosung(char) }}
         </div>
       </div>
-      <div class="mt-8 text-4xl font-bold" v-if="showHint">
+      <div class="mt-8 text-4xl font-bold" v-if="hintLevel >= 1">
+        {{
+          currentWord.category
+            ? `주제: ${currentWord.category}`
+            : currentWord.hint
+        }}
+      </div>
+      <div class="mt-8 text-4xl font-bold" v-if="hintLevel >= 2">
         {{ currentWord.hint }}
       </div>
-      <div v-else @click="setShowHint" class="mt-8 text-3xl cursor-pointer">
+      <div
+        v-if="currentWord.category ? hintLevel <= 1 : hintLevel <= 0"
+        @click="setShowHint"
+        class="mt-8 text-3xl cursor-pointer"
+      >
         클릭해서 힌트 보기
       </div>
       <div
@@ -101,7 +112,7 @@ export default defineComponent({
       currentTurn: 0,
       ready: false,
       matchedUser: null as null | { username: string },
-      showHint: false,
+      hintLevel: 0,
       isAnswerVisible: false,
     }
   },
@@ -143,19 +154,19 @@ export default defineComponent({
         return
       }
       this.matchedUser = null
-      this.showHint = false
+      this.hintLevel = 0
       this.isAnswerVisible = false
       this.currentTurn++
     },
     setShowHint() {
-      this.showHint = true
+      this.hintLevel += 1
     },
     showAnswer() {
       this.history.push({
         user: null,
         word: this.currentWord.word,
       })
-      this.showHint = true
+      this.hintLevel = 2
       this.isAnswerVisible = true
     },
   },
