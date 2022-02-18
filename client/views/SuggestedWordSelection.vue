@@ -85,7 +85,13 @@ export default defineComponent({
           type: 'danger',
         })
       const words = this.categories
-        .map((x) => (suggested.find((y) => y.id === x) as Category).words)
+        .map((x) => {
+          const category = suggested.find((y) => y.id === x) as Category
+          return category.words.map((x) => {
+            x.category = category.title
+            return x
+          })
+        })
         .reduce((a, b) => [...a, ...b])
       this.store.commit('wordSet', _.sampleSize(words, this.count))
       this.$router.push('/play')
@@ -93,5 +99,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style scoped></style>
