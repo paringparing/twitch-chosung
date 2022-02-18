@@ -21,6 +21,38 @@
         </router-link>
       </div>
     </div>
+    <div class="border-t p-4">
+      <div class="flex gap-4 items-center">
+        <div class="text-lg font-bold">초성 퀴즈</div>
+        <div class="bg-black bg-opacity-10 h-1 rounded-full w-4" />
+        <a
+          href="https://morrc.notion.site/1-0-0-beta2-752fde72818a488aae5b25f93dcc970a"
+          rel="noreferrer"
+          target="_blank"
+          >1.0.0-beta2 패치노트</a
+        >
+      </div>
+      <div class="pt-4 flex gap-12 flex-wrap">
+        <div>
+          <div class="text-xl font-bold">Links</div>
+          <a
+            href="https://github.com/paringparing/twitch-chosung"
+            target="_blank"
+            rel="noreferrer"
+            >GitHub</a
+          >
+        </div>
+        <div>
+          <div class="text-xl font-bold">Progress</div>
+          <a
+            href="https://morrc.notion.site/b81c7728f1614ae79a6ea21565a4bf56?v=82a061495a334726b4311e9a289f459a"
+            target="_blank"
+            rel="noreferrer"
+            >Tracking Board</a
+          >
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script lang="ts">
