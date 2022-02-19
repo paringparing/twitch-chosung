@@ -249,7 +249,7 @@ export default defineComponent({
     gap: 10px;
 
     &.correct {
-      color: #19ff9f;
+      color: #18bb67;
     }
   }
 }
