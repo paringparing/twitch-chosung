@@ -58,10 +58,10 @@ export default {
       }
     )
     const store = useStore()
-    if (window.location.hash.startsWith('#/callback/#')) {
+    if (window.location.hash.startsWith('#/callback#')) {
       ;(async () => {
         const query = new URLSearchParams(
-          window.location.hash.slice('#/callback/#'.length)
+          window.location.hash.slice('#/callback#'.length)
         )
         const {
           data: { data },
