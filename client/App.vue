@@ -45,7 +45,9 @@ export default {
   computed: {
     loginLink() {
       const clientId = process.env.API_APPLICATION_ID
-      return `https://id.twitch.tv/oauth2/authorize?client_id=${clientId}&redirect_uri=${process.env.API_CALLBACK}&response_type=token&scope=`
+      return `https://id.twitch.tv/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(
+        process.env.API_CALLBACK
+      )}&response_type=token&scope=`
     },
   },
   created() {
