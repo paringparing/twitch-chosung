@@ -7,6 +7,6 @@ services:
       - POSTGRES_PASSWORD=sans
       - PGDATA=/var/lib/postgresql/data/pgdata
     ports:
-      - "127.0.0.1:5432:5432"
+      - '127.0.0.1:5432:5432'
     volumes:
       - ./data/db:/var/lib/postgresql/data

@@ -74,7 +74,13 @@ export default {
       })
       return
     }
-    store.dispatch('loadChannel').then(() => {
+    store.dispatch('loadChannel').then(async () => {
+      const { data } = await axios.get(
+        'https://raw.githubusercontent.com/paringparing/twitch-chosung/data/suggest.json'
+      )
+      store.commit('suggested', data)
+      console.log(`Loaded ${data.length} word sets`)
+
       if (!store.state.channel) return store.commit('loading', false)
 
       store.dispatch('tmi', store.state.channel).then(() => {

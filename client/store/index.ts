@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 import { Client } from 'tmi.js'
-import { Word } from '../types'
+import { Category, Word } from '../types'
 
 export type History = { user: string | null; word: string }[]
 
@@ -15,6 +15,7 @@ export default createStore({
       localStorage.showChat === undefined
         ? true
         : localStorage.showChat === 'true',
+    suggested: [] as Category[],
   },
   getters: {
     channel: (state) => state.channel,
@@ -23,6 +24,7 @@ export default createStore({
     wordSet: (state) => state.wordSet,
     history: (state) => state.history,
     showChat: (state) => state.showChat,
+    suggested: (state) => state.suggested,
   },
   mutations: {
     channel: (state, payload) => (state.channel = payload),
@@ -34,6 +36,7 @@ export default createStore({
       state.showChat = payload
       localStorage.showChat = payload
     },
+    suggested: (state, payload) => (state.suggested = payload),
   },
   actions: {
     loadChannel: async ({ commit }) => {
