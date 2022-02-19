@@ -26,6 +26,11 @@ const routes = [
     name: 'Suggest',
     component: () => import('./views/SuggestedWordSelection.vue'),
   },
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: () => import('./views/GlobalSettings.vue'),
+  },
 ]
 
 export const router = createRouter({

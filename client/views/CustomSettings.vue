@@ -3,7 +3,8 @@
     <Header />
     <div class="px-6">
       <div class="container mx-auto">
-        <div class="flex flex-col gap-4">
+        <div class="text-2xl font-bold mb-2">단어 설정</div>
+        <div class="grid lg:grid-cols-2 gap-4">
           <div class="flex gap-4" v-for="word in words">
             <div class="flex flex-grow gap-4">
               <input
@@ -37,7 +38,7 @@
               @click="play"
               class="h-12 rounded-md flex items-center justify-center cursor-pointer flex-grow border border-2"
             >
-              시작
+              완료
             </div>
             <div
               @click="add"
@@ -95,7 +96,7 @@ export default defineComponent({
         return
       }
       this.store.commit('wordSet', _.shuffle(this.words))
-      this.$router.push('/play')
+      this.$router.push('/settings')
     },
   },
 })

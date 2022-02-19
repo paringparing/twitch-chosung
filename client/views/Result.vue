@@ -85,12 +85,28 @@ export default defineComponent({
   computed: {
     ranking() {
       const vm = this as unknown as { history: History }
+      let rank = 0
       const users = Array.from(
         new Set(vm.history.filter((x) => x.user).map((x) => x.user!))
-      ).map((x: string) => ({
-        user: x,
-        count: vm.history.filter((y) => y.user === x).length,
-      }))
+      )
+        .map((x: string) => ({
+          user: x,
+          count: vm.history.filter((y) => y.user === x).length,
+        }))
+        .map((value, index, array) => {
+          if (index > 0) {
+            if (array[index - 1].count === value.count) {
+              return {
+                ...value,
+                rank: rank,
+              }
+            }
+          }
+          return {
+            ...value,
+            rank: ++rank,
+          }
+        })
       return _.sortBy(users, 'count').reverse()
     },
   },

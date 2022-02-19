@@ -1,26 +1,43 @@
 <template>
   <div class="flex flex-col h-screen">
     <Header />
-    <div class="flex flex-grow flex-col items-center mt-16" v-if="ready">
+    <div
+      class="flex flex-grow flex-col items-center mt-16 relative"
+      v-if="ready"
+    >
+      <div class="chat" v-if="showChat">
+        <div v-for="i in chat" :class="{ correct: i.correct, item: true }">
+          <span>{{ i.state['display-name'] ?? i.state.username }}</span>
+          <span>{{ i.chat }}</span>
+        </div>
+      </div>
       <div class="text-6xl font-black">
         {{ currentTurn + 1 }} / {{ wordSet.length }} 라운드
       </div>
       <div class="flex mt-8 border-2 border-black">
         <div
-          class="border border-4 border-black w-32 h-32 flex font-bold items-center justify-center text-8xl"
-          v-for="char in currentWord.word.split('')"
+          class="border border-4 border-black w-32 h-32 flex font-bold items-center justify-center text-8xl cursor-pointer"
+          @click="showChar(parseInt(i))"
+          v-for="[i, char] in Object.entries(currentWord.word.split(''))"
         >
-          {{ isAnswerVisible ? char : getChosung(char) }}
+          {{
+            isAnswerVisible || shownChars.includes(parseInt(i))
+              ? char
+              : getChosung(char)
+          }}
         </div>
       </div>
-      <div class="mt-8 text-4xl font-bold" v-if="hintLevel >= 1">
+      <div class="mt-8 text-4xl font-bold text-center" v-if="hintLevel >= 1">
         {{
           currentWord.category
             ? `주제: ${currentWord.category}`
             : currentWord.hint
         }}
       </div>
-      <div class="mt-8 text-4xl font-bold" v-if="hintLevel >= 2">
+      <div
+        class="mt-8 text-4xl font-bold text-center"
+        v-if="currentWord.category && hintLevel >= 2"
+      >
         {{ currentWord.hint }}
       </div>
       <div
@@ -98,6 +115,8 @@ export default defineComponent({
       wordSet: computed<Word[]>(() => store.state.wordSet as Word[]),
       tmi: computed<Client>(() => store.state.tmi as Client),
       history: computed<History>(() => store.state.history),
+      store,
+      showChat: computed(() => store.state.showChat),
     }
   },
   computed: {
@@ -114,10 +133,18 @@ export default defineComponent({
       matchedUser: null as null | { username: string },
       hintLevel: 0,
       isAnswerVisible: false,
+      chat: [] as { chat: string; state: ChatUserstate; correct?: boolean }[],
+      shownChars: [] as number[],
     }
   },
   mounted() {
     if (!this.wordSet) {
+      if (process.env.NODE_ENV === 'development') {
+        this.store.state.wordSet = JSON.parse(localStorage.custom_words)
+        this.tmi.on('message', this.onChat)
+        this.ready = true
+        return
+      }
       createToast('단어 데이터가 설정되지 않았습니다.', { type: 'danger' })
       this.$router.push('/')
       return
@@ -132,18 +159,37 @@ export default defineComponent({
   },
   methods: {
     onChat(channel: string, userState: ChatUserstate, message: string) {
-      if (this.matchedUser) return
+      const addChat = () => {
+        this.chat.push({
+          chat: message,
+          state: userState,
+        })
+        if (this.chat.length > 10) {
+          this.chat.shift()
+        }
+      }
+      if (this.matchedUser || this.isAnswerVisible) return addChat()
       const matched = this.currentWord.word === message
       if (matched) {
         const username = (userState['display-name'] ??
           userState.username) as string
         this.matchedUser = { username }
         correctSound.play()
+        this.chat.push({
+          chat: message,
+          state: userState,
+          correct: true,
+        })
+        if (this.chat.length > 10) {
+          this.chat.shift()
+        }
         this.history.push({
           user: username,
           word: this.currentWord.word,
         })
+        return
       }
+      addChat()
     },
     getChosung(char: string) {
       return Hangul.disassemble(char)[0]
@@ -169,8 +215,42 @@ export default defineComponent({
       this.hintLevel = 2
       this.isAnswerVisible = true
     },
+    showChar(index: number) {
+      if (this.shownChars.includes(index)) return
+      this.shownChars.push(index)
+      if (this.shownChars.length === this.currentWord.word.length) {
+        this.showAnswer()
+      }
+    },
   },
 })
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.chat {
+  position: absolute;
+  pointer-events: none;
+  right: 30px;
+  top: 0;
+
+  width: 300px;
+  overflow: hidden;
+  align-items: stretch;
+
+  max-height: 300px;
+  height: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  .item {
+    display: flex;
+    gap: 10px;
+
+    &.correct {
+      color: #18bb67;
+    }
+  }
+}
+</style>

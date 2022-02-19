@@ -39,7 +39,6 @@
 
 <script lang="ts">
 import Header from '../components/Header.vue'
-import suggested from '../../suggest.json'
 import { defineComponent } from 'vue'
 import { Category } from '../types'
 import { createToast } from 'mosha-vue-toastify'
@@ -52,7 +51,7 @@ export default defineComponent({
   setup() {
     const store = useStore()
 
-    return { suggested: suggested as Category[], store }
+    return { suggested: store.state.suggested as Category[], store }
   },
   computed: {
     maxCount() {
@@ -60,7 +59,12 @@ export default defineComponent({
       const vm = this as unknown as { categories: string[] }
       return vm.categories
         .map(
-          (x) => (suggested.find((y) => y.id === x) as Category).words.length
+          (x) =>
+            (
+              (this as any).store.state.suggested.find(
+                (y: Category) => y.id === x
+              ) as Category
+            ).words.length
         )
         .reduce((a, b) => a + b)
     },
@@ -86,7 +90,9 @@ export default defineComponent({
         })
       const words = this.categories
         .map((x) => {
-          const category = suggested.find((y) => y.id === x) as Category
+          const category = this.store.state.suggested.find(
+            (y: Category) => y.id === x
+          ) as Category
           return category.words.map((x) => {
             x.category = category.title
             return x
@@ -94,7 +100,7 @@ export default defineComponent({
         })
         .reduce((a, b) => [...a, ...b])
       this.store.commit('wordSet', _.sampleSize(words, this.count))
-      this.$router.push('/play')
+      this.$router.push('/settings')
     },
   },
 })
