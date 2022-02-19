@@ -3,7 +3,15 @@
     <Header />
     <div class="px-6">
       <div class="container mx-auto">
-        <div class="text-2xl font-bold mb-2">단어 설정</div>
+        <div class="text-2xl font-bold mb-2 flex gap-2">
+          단어 설정
+          <div
+            @click="add"
+            class="h-8 w-8 border rounded-md flex items-center justify-center cursor-pointer border-2"
+          >
+            <font-awesome-icon icon="plus" />
+          </div>
+        </div>
         <div class="grid lg:grid-cols-2 gap-4">
           <div class="flex gap-4" v-for="word in words">
             <div class="flex flex-grow gap-4">
@@ -39,12 +47,6 @@
               class="h-12 rounded-md flex items-center justify-center cursor-pointer flex-grow border border-2"
             >
               완료
-            </div>
-            <div
-              @click="add"
-              class="h-12 w-12 border rounded-md flex items-center justify-center cursor-pointer border-2"
-            >
-              <font-awesome-icon icon="plus" />
             </div>
           </div>
         </div>
