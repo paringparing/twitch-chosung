@@ -22,14 +22,17 @@
           {{ isAnswerVisible ? char : getChosung(char) }}
         </div>
       </div>
-      <div class="mt-8 text-4xl font-bold" v-if="hintLevel >= 1">
+      <div class="mt-8 text-4xl font-bold text-center" v-if="hintLevel >= 1">
         {{
           currentWord.category
             ? `주제: ${currentWord.category}`
             : currentWord.hint
         }}
       </div>
-      <div class="mt-8 text-4xl font-bold" v-if="hintLevel >= 2">
+      <div
+        class="mt-8 text-4xl font-bold text-center"
+        v-if="currentWord.category && hintLevel >= 2"
+      >
         {{ currentWord.hint }}
       </div>
       <div
