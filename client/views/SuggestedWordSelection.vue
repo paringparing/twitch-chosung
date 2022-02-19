@@ -94,7 +94,7 @@ export default defineComponent({
         })
         .reduce((a, b) => [...a, ...b])
       this.store.commit('wordSet', _.sampleSize(words, this.count))
-      this.$router.push('/play')
+      this.$router.push('/settings')
     },
   },
 })
