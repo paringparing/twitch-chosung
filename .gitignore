@@ -119,3 +119,5 @@ dist
 /.idea
 /data
 /Caddyfile
+
+.DS_Store
