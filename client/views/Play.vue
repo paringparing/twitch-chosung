@@ -199,6 +199,7 @@ export default defineComponent({
         this.$router.push('/result')
         return
       }
+      this.shownChars = []
       this.matchedUser = null
       this.hintLevel = 0
       this.isAnswerVisible = false
