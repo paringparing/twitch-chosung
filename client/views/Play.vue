@@ -16,10 +16,15 @@
       </div>
       <div class="flex mt-8 border-2 border-black">
         <div
-          class="border border-4 border-black w-32 h-32 flex font-bold items-center justify-center text-8xl"
-          v-for="char in currentWord.word.split('')"
+          class="border border-4 border-black w-32 h-32 flex font-bold items-center justify-center text-8xl cursor-pointer"
+          @click="showChar(parseInt(i))"
+          v-for="[i, char] in Object.entries(currentWord.word.split(''))"
         >
-          {{ isAnswerVisible ? char : getChosung(char) }}
+          {{
+            isAnswerVisible || shownChars.includes(parseInt(i))
+              ? char
+              : getChosung(char)
+          }}
         </div>
       </div>
       <div class="mt-8 text-4xl font-bold text-center" v-if="hintLevel >= 1">
@@ -129,6 +134,7 @@ export default defineComponent({
       hintLevel: 0,
       isAnswerVisible: false,
       chat: [] as { chat: string; state: ChatUserstate; correct?: boolean }[],
+      shownChars: [] as number[],
     }
   },
   mounted() {
@@ -208,6 +214,13 @@ export default defineComponent({
       })
       this.hintLevel = 2
       this.isAnswerVisible = true
+    },
+    showChar(index: number) {
+      if (this.shownChars.includes(index)) return
+      this.shownChars.push(index)
+      if (this.shownChars.length === this.currentWord.word.length) {
+        this.showAnswer()
+      }
     },
   },
 })
