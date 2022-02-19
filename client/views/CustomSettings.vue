@@ -3,6 +3,7 @@
     <Header />
     <div class="px-6">
       <div class="container mx-auto">
+        <div class="text-2xl font-bold mb-2">단어 설정</div>
         <div class="flex flex-col gap-4">
           <div class="flex gap-4" v-for="word in words">
             <div class="flex flex-grow gap-4">
