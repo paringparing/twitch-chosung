@@ -132,7 +132,7 @@ export default defineComponent({
   },
   methods: {
     onChat(channel: string, userState: ChatUserstate, message: string) {
-      if (this.matchedUser) return
+      if (this.matchedUser || this.isAnswerVisible) return
       const matched = this.currentWord.word === message
       if (matched) {
         const username = (userState['display-name'] ??
