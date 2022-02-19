@@ -5,7 +5,7 @@
       class="flex flex-grow flex-col items-center mt-16 relative"
       v-if="ready"
     >
-      <div class="chat">
+      <div class="chat" v-if="showChat">
         <div v-for="i in chat" :class="{ correct: i.correct, item: true }">
           <span>{{ i.state['display-name'] ?? i.state.username }}</span>
           <span>{{ i.chat }}</span>
@@ -108,6 +108,7 @@ export default defineComponent({
       tmi: computed<Client>(() => store.state.tmi as Client),
       history: computed<History>(() => store.state.history),
       store,
+      showChat: computed(() => store.state.showChat),
     }
   },
   computed: {
@@ -232,7 +233,7 @@ export default defineComponent({
     gap: 10px;
 
     &.correct {
-      color: #f00;
+      color: #19ff9f;
     }
   }
 }
