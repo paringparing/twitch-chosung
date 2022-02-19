@@ -46,7 +46,7 @@ export default {
     loginLink() {
       const clientId = process.env.API_APPLICATION_ID
       return `https://id.twitch.tv/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(
-        process.env.API_CALLBACK
+        process.env.API_CALLBACK as string
       )}&response_type=token&scope=`
     },
   },
@@ -58,9 +58,11 @@ export default {
       }
     )
     const store = useStore()
-    if (window.location.pathname === '/callback') {
+    if (window.location.hash.startsWith('#/callback/#')) {
       ;(async () => {
-        const query = new URLSearchParams(window.location.hash.slice(2))
+        const query = new URLSearchParams(
+          window.location.hash.slice('#/callback/#'.length)
+        )
         const {
           data: { data },
         } = await axios.get('https://api.twitch.tv/helix/users?ids=468542410', {
