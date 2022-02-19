@@ -28,6 +28,7 @@ jobs:
           CI: false
           API_APPLICATION_ID: jtz5v7o73ho3v04aojstxh8vjpxauh
           API_CALLBACK: https://quiz.morrc.xyz/callback
+          PARCEL_WORKERS: '0'
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
