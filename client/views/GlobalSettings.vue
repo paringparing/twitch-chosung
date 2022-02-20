@@ -16,6 +16,15 @@
             </label>
           </div>
         </section>
+        <section>
+          <div class="text-2xl font-bold">기타</div>
+          <div
+            @click="openPopup"
+            class="bg-green-500 hover:brightness-90 active:brightness-75 transition-all inline-block cursor-pointer rounded-md text-white p-4"
+          >
+            스트리머용 팝업 열기
+          </div>
+        </section>
         <div
           @click="startGame"
           class="px-4 py-2 mt-2 border-2 border-green-400 rounded-md text-center cursor-pointer"
@@ -45,6 +54,9 @@ export default defineComponent({
     },
     startGame() {
       this.$router.push('/play')
+    },
+    openPopup() {
+      window.open('/#/popup', 'Quiz Popup', 'width=300,height=600')
     },
   },
 })
