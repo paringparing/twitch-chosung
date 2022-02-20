@@ -8,8 +8,13 @@ const routes = [
   },
   {
     path: '/custom',
-    name: 'Custom',
-    component: () => import('./views/CustomSettings.vue'),
+    name: 'CustomList',
+    component: () => import('./views/Custom/CustomCollectionList.vue'),
+  },
+  {
+    path: '/custom/:id',
+    name: 'CustomEdit',
+    component: () => import('./views/Custom/CustomSettings.vue'),
   },
   {
     path: '/play',

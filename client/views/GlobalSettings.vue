@@ -14,11 +14,30 @@
               />
               <span class="ml-2">트위치 채팅 활성화</span>
             </label>
+            <label v-if="showChat">
+              <input
+                :checked="chatPercentageEnabled"
+                @change="updateIsChatPercentageEnabled"
+                type="checkbox"
+              />
+              <span class="ml-2">채팅 오버레이에서 정답 퍼센트 보기</span>
+            </label>
+          </div>
+        </section>
+        <section>
+          <div class="text-2xl font-bold">기타</div>
+          <div class="grid md:grid-cols-2">
+            <div
+              @click="openPopup"
+              class="bg-green-500 hover:brightness-90 active:brightness-75 transition-all text-center cursor-pointer rounded-md text-white px-4 py-2"
+            >
+              스트리머용 팝업 열기
+            </div>
           </div>
         </section>
         <div
           @click="startGame"
-          class="px-4 py-2 mt-2 border-2 border-green-400 rounded-md text-center cursor-pointer"
+          class="px-4 py-2 mt-2 bg-green-500 hover:brightness-90 active:brightness-75 transition-all text-center rounded-md cursor-pointer text-white cursor-pointer"
         >
           게임 시작
         </div>
@@ -37,14 +56,27 @@ export default defineComponent({
   setup() {
     const store = useStore()
 
-    return { store, showChat: computed(() => store.state.showChat) }
+    return {
+      store,
+      showChat: computed(() => store.state.showChat),
+      chatPercentageEnabled: computed(() => store.state.showPercentageInChat),
+    }
   },
   methods: {
     updateIsTwitchChatEnabled(e: InputEvent) {
       this.store.commit('showChat', (e.target as HTMLInputElement).checked)
     },
+    updateIsChatPercentageEnabled(e: InputEvent) {
+      this.store.commit(
+        'showPercentageInChat',
+        (e.target as HTMLInputElement).checked
+      )
+    },
     startGame() {
       this.$router.push('/play')
+    },
+    openPopup() {
+      window.open('/#/popup', 'Quiz Popup', 'width=300,height=600')
     },
   },
 })
