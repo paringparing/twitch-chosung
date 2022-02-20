@@ -59,6 +59,7 @@
           <div class="text-center text-6xl mt-8 font-bold">
             {{ currentWord.word }}
           </div>
+          <div class="text-center text-3xl">{{ currentWord.hint }}</div>
           <div
             class="border-2 text-center p-4 text-2xl mt-8 w-full cursor-pointer"
             @click="nextWord"
