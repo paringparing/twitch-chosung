@@ -151,12 +151,6 @@ export default defineComponent({
   },
   mounted() {
     if (!this.wordSet) {
-      if (process.env.NODE_ENV === 'development') {
-        this.store.state.wordSet = JSON.parse(localStorage.custom_words)
-        this.tmi.on('message', this.onChat)
-        this.ready = true
-        return
-      }
       createToast('단어 데이터가 설정되지 않았습니다.', { type: 'danger' })
       this.$router.push('/')
       return

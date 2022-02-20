@@ -32,7 +32,8 @@
     "vue": "3",
     "vue-gtag": "^2.0.1",
     "vue-router": "^4.0.12",
-    "vuex": "^4.0.2"
+    "vuex": "^4.0.2",
+    "zod": "^3.11.6"
   },
   "scripts": {
     "dev": "parcel client/index.html --host localhost",
