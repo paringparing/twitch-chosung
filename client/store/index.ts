@@ -15,6 +15,10 @@ export default createStore({
       localStorage.showChat === undefined
         ? true
         : localStorage.showChat === 'true',
+    showPercentageInChat:
+      localStorage.showChat === undefined
+        ? true
+        : localStorage.showPercentageInChat === 'true',
     suggested: [] as Category[],
     popupConnected: false,
   },
@@ -27,6 +31,10 @@ export default createStore({
     showChat: (state, payload) => {
       state.showChat = payload
       localStorage.showChat = payload
+    },
+    showPercentageInChat: (state, payload) => {
+      state.showPercentageInChat = payload
+      localStorage.showPercentageInChat = payload
     },
     suggested: (state, payload) => (state.suggested = payload),
     popupConnected: (state, payload) => (state.popupConnected = payload),

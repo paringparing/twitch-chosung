@@ -7,6 +7,7 @@
     >
       <div class="chat" v-if="showChat">
         <div v-for="i in chat" :class="{ correct: i.correct, item: true }">
+          <span v-if="i.percentage !== undefined">{{ i.percentage }}%</span>
           <span>{{ i.state['display-name'] ?? i.state.username }}</span>
           <span>{{ i.chat }}</span>
         </div>
@@ -139,7 +140,12 @@ export default defineComponent({
       matchedUser: null as null | { username: string },
       hintLevel: 0,
       isAnswerVisible: false,
-      chat: [] as { chat: string; state: ChatUserstate; correct?: boolean }[],
+      chat: [] as {
+        chat: string
+        state: ChatUserstate
+        correct?: boolean
+        percentage?: number
+      }[],
       shownChars: [] as number[],
     }
   },
@@ -193,10 +199,32 @@ export default defineComponent({
   },
   methods: {
     onChat(channel: string, userState: ChatUserstate, message: string) {
-      const addChat = () => {
+      const addChat = (fail: boolean = false) => {
+        let percentage: number | undefined
+        if (fail) {
+          if (this.store.state.showPercentageInChat) {
+            if (this.currentWord) {
+              if (this.currentWord.word.length === message.length) {
+                let max = 0
+                let matched = 0
+                for (let i = 0; i < this.currentWord.word.length; i++) {
+                  const char = this.currentWord.word[i]
+                  const disassembled = Hangul.d(char)
+                  max += disassembled.length
+                  const disassembledMessage = Hangul.d(message[i])
+                  matched += disassembled.filter(
+                    (x, i) => disassembledMessage[i] === x
+                  ).length
+                }
+                percentage = Math.floor((matched / max) * 100)
+              }
+            }
+          }
+        }
         this.chat.push({
           chat: message,
           state: userState,
+          percentage,
         })
         if (this.chat.length > 10) {
           this.chat.shift()
@@ -231,7 +259,7 @@ export default defineComponent({
         )
         return
       }
-      addChat()
+      addChat(true)
     },
     getChosung(char: string) {
       return Hangul.disassemble(char)[0]

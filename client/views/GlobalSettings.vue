@@ -14,6 +14,14 @@
               />
               <span class="ml-2">트위치 채팅 활성화</span>
             </label>
+            <label v-if="showChat">
+              <input
+                :checked="chatPercentageEnabled"
+                @change="updateIsChatPercentageEnabled"
+                type="checkbox"
+              />
+              <span class="ml-2">채팅 오버레이에서 정답 퍼센트 보기</span>
+            </label>
           </div>
         </section>
         <section>
@@ -48,11 +56,21 @@ export default defineComponent({
   setup() {
     const store = useStore()
 
-    return { store, showChat: computed(() => store.state.showChat) }
+    return {
+      store,
+      showChat: computed(() => store.state.showChat),
+      chatPercentageEnabled: computed(() => store.state.showPercentageInChat),
+    }
   },
   methods: {
     updateIsTwitchChatEnabled(e: InputEvent) {
       this.store.commit('showChat', (e.target as HTMLInputElement).checked)
+    },
+    updateIsChatPercentageEnabled(e: InputEvent) {
+      this.store.commit(
+        'showPercentageInChat',
+        (e.target as HTMLInputElement).checked
+      )
     },
     startGame() {
       this.$router.push('/play')
