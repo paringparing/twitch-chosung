@@ -62,13 +62,14 @@
           <div
             class="border-2 text-center p-4 text-2xl mt-8 w-full cursor-pointer"
             @click="nextWord"
+            v-if="!popupConnected"
           >
             {{ currentTurn + 1 === wordSet.length ? '결과 보기' : '다음' }}
           </div>
         </div>
       </div>
       <div class="flex-grow"></div>
-      <div class="flex w-full justify-end p-4">
+      <div class="flex w-full justify-end p-4" v-if="!popupConnected">
         <div
           v-if="!isAnswerVisible"
           @click="showAnswer"
@@ -89,7 +90,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, watch } from 'vue'
 import { useStore } from 'vuex'
 import { Word } from '../types'
 import Header from '../components/Header.vue'
@@ -98,6 +99,7 @@ import { ChatUserstate, Client } from 'tmi.js'
 import Hangul from 'hangul-js'
 import { History } from '../store'
 import { event } from 'vue-gtag'
+import { getPopupWindow } from '../utils/popup'
 
 const correctSound = new Audio(
   // @ts-ignore
@@ -117,11 +119,14 @@ export default defineComponent({
       history: computed<History>(() => store.state.history),
       store,
       showChat: computed(() => store.state.showChat),
+      popupConnected: computed(() => store.state.popupConnected),
     }
   },
   computed: {
     currentWord() {
       const vm = this as { wordSet: Word[]; currentTurn: number }
+
+      if (!vm.wordSet) return null
 
       return vm.wordSet[vm.currentTurn]
     },
@@ -151,11 +156,39 @@ export default defineComponent({
     }
     this.tmi.on('message', this.onChat)
     this.ready = true
+    getPopupWindow()?.dispatchEvent(
+      new CustomEvent('state_changed', {
+        detail: { action: 'set_word', value: this.currentWord },
+      })
+    )
     event('game_start', { channel: this.tmi.getChannels()[0] })
   },
-  unmounted() {
+  beforeUnmount() {
+    getPopupWindow()?.dispatchEvent(
+      new CustomEvent('state_changed', { detail: { action: 'end' } })
+    )
+    const w = window as any
+    w.onPopupConnected = null
+    w.onNextWord = null
     this.tmi.removeListener('message', this.onChat)
     event('game_end', { channel: this.tmi.getChannels()[0] })
+  },
+  created() {
+    const w = window as any
+    w.onPopupConnected = () => {
+      getPopupWindow()?.dispatchEvent(
+        new CustomEvent('state_changed', {
+          detail: { action: 'set_word', value: this.currentWord },
+        })
+      )
+    }
+    w.onNextWord = () => {
+      if (this.isAnswerVisible || this.matchedUser) {
+        this.nextWord()
+      } else {
+        this.showAnswer()
+      }
+    }
   },
   methods: {
     onChat(channel: string, userState: ChatUserstate, message: string) {
@@ -169,7 +202,7 @@ export default defineComponent({
         }
       }
       if (this.matchedUser || this.isAnswerVisible) return addChat()
-      const matched = this.currentWord.word === message
+      const matched = this.currentWord!.word === message
       if (matched) {
         const username = (userState['display-name'] ??
           userState.username) as string
@@ -185,8 +218,16 @@ export default defineComponent({
         }
         this.history.push({
           user: username,
-          word: this.currentWord.word,
+          word: this.currentWord!.word,
         })
+        getPopupWindow()?.dispatchEvent(
+          new CustomEvent('state_changed', {
+            detail: {
+              action: 'set_answer_visible',
+              value: true,
+            },
+          })
+        )
         return
       }
       addChat()
@@ -204,6 +245,19 @@ export default defineComponent({
       this.hintLevel = 0
       this.isAnswerVisible = false
       this.currentTurn++
+      getPopupWindow()?.dispatchEvent(
+        new CustomEvent('state_changed', {
+          detail: {
+            action: 'set_answer_visible',
+            value: false,
+          },
+        })
+      )
+      getPopupWindow()?.dispatchEvent(
+        new CustomEvent('state_changed', {
+          detail: { action: 'set_word', value: this.currentWord },
+        })
+      )
     },
     setShowHint() {
       this.hintLevel += 1
@@ -211,15 +265,23 @@ export default defineComponent({
     showAnswer() {
       this.history.push({
         user: null,
-        word: this.currentWord.word,
+        word: this.currentWord!.word,
       })
       this.hintLevel = 2
       this.isAnswerVisible = true
+      getPopupWindow()?.dispatchEvent(
+        new CustomEvent('state_changed', {
+          detail: {
+            action: 'set_answer_visible',
+            value: true,
+          },
+        })
+      )
     },
     showChar(index: number) {
       if (this.shownChars.includes(index)) return
       this.shownChars.push(index)
-      if (this.shownChars.length === this.currentWord.word.length) {
+      if (this.shownChars.length === this.currentWord!.word.length) {
         this.showAnswer()
       }
     },

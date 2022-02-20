@@ -22,19 +22,21 @@
 
 <script lang="ts">
 import { useStore } from 'vuex'
-import { computed, watch } from 'vue'
+import { computed, defineComponent, watch } from 'vue'
 import { createToast } from 'mosha-vue-toastify'
 import Header from './components/Header.vue'
 import { event } from 'vue-gtag'
 import axios from 'axios'
+import { getPopupWindow } from './utils/popup'
 
-export default {
+export default defineComponent({
   components: { Header },
   setup() {
     const store = useStore()
     return {
       loading: computed(() => store.state.loading),
       user: computed<string | null>(() => store.state.channel),
+      store,
     }
   },
   data() {
@@ -54,9 +56,33 @@ export default {
     watch(
       () => (this as any).$route,
       () => {
-        event('page_view', { path: window.location.pathname })
+        event('page_view', { path: '/' + window.location.hash.slice(1) })
       }
     )
+    setInterval(() => {
+      const w = window as any
+      if (((w.popupInstance as Window)?.closed ?? true) && w.popupSetup) {
+        w.popupInstance = null
+        w.popupSetup = false
+        this.store.commit('popupConnected', false)
+        createToast('팝업창과의 연결이 끊어졌습니다.', {
+          type: 'danger',
+        })
+      }
+    }, 1000)
+    window.addEventListener('popup_connected', () => {
+      ;(window as any).popupSetup = true
+      this.$nextTick(() => {
+        this.store.commit('popupConnected', false)
+        this.$nextTick(() => {
+          this.store.commit('popupConnected', true)
+        })
+      })
+      getPopupWindow()?.dispatchEvent(new CustomEvent('popup_setup'))
+      createToast('팝업창과 연결되었습니다', {
+        type: 'success',
+      })
+    })
     const store = useStore()
     if (window.location.hash.startsWith('#/callback#')) {
       ;(async () => {
@@ -103,7 +129,7 @@ export default {
       window.location.reload()
     },
   },
-}
+})
 </script>
 
 <style>

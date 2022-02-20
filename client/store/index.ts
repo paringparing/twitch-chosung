@@ -16,15 +16,7 @@ export default createStore({
         ? true
         : localStorage.showChat === 'true',
     suggested: [] as Category[],
-  },
-  getters: {
-    channel: (state) => state.channel,
-    loading: (state) => state.loading,
-    tmi: (state) => state.tmi,
-    wordSet: (state) => state.wordSet,
-    history: (state) => state.history,
-    showChat: (state) => state.showChat,
-    suggested: (state) => state.suggested,
+    popupConnected: false,
   },
   mutations: {
     channel: (state, payload) => (state.channel = payload),
@@ -37,6 +29,7 @@ export default createStore({
       localStorage.showChat = payload
     },
     suggested: (state, payload) => (state.suggested = payload),
+    popupConnected: (state, payload) => (state.popupConnected = payload),
   },
   actions: {
     loadChannel: async ({ commit }) => {
