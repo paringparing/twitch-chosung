@@ -26,10 +26,10 @@
         <div class="text-lg font-bold">초성 퀴즈</div>
         <div class="bg-black bg-opacity-10 h-1 rounded-full w-4" />
         <a
-          href="https://morrc.notion.site/1-0-2-26c5ded39bc5450584cfdf04d30903b0"
+          href="https://morrc.notion.site/1-0-3-WIP-8ab3be2ebc0f4ac8a08016ee24b2adb9"
           rel="noreferrer"
           target="_blank"
-          >1.0.2 패치노트</a
+          >1.0.3 패치노트</a
         >
       </div>
       <div class="pt-4 flex gap-12 flex-wrap">
