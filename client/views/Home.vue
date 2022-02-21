@@ -51,7 +51,7 @@
             href="https://forms.gle/KcNTRyAhbYWZf69P9"
             target="_blank"
             rel="noreferrer"
-            >단어 / 주제 추천</a
+            >단어 / 주제 추천 / 오타 신고 등등</a
           >
         </div>
         <div class="flex flex-col">
