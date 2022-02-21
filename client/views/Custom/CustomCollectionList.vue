@@ -3,7 +3,7 @@
     <Header />
     <div class="px-8">
       <div class="container mx-auto">
-        <div class="text-3xl font-bold">단어 컬렉션</div>
+        <div class="text-3xl font-bold">단어 컬렉션 - 컴퓨터 리부팅하면 저장이 안됩니다. 내보내기를 사용해주세요!</div>
         <div class="grid grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-2">
           <router-link
             v-for="[index, i] in Object.entries(collectionList)"
