@@ -4,7 +4,7 @@
     <div class="px-6" v-if="item">
       <div class="container mx-auto">
         <div>
-          <div class="text-2xl font-bold">컬렉션 이름</div>
+          <div class="text-2xl font-bold">컬렉션 이름 - 다운로드로 파일을 저장해주세요! [ 재부팅시 삭제 ]</div>
           <input
             type="text"
             v-model="item.title"
