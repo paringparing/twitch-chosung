@@ -90,6 +90,16 @@
       ]
     },
     {
+      "id": "animation",
+      "title": "애니메이션 추가 예정",
+      "words": [
+        {
+          "word": "준비중",
+          "hint": "준비중"
+        }
+      ]
+    },
+    {
       "id": "movie",
       "title": "영화 추가 예정",
       "words": [
