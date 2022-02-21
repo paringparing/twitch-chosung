@@ -33,22 +33,34 @@
         >
       </div>
       <div class="pt-4 flex gap-12 flex-wrap">
-        <div>
-          <div class="text-xl font-bold">Links</div>
+        <div class="flex flex-col">
+          <div class="text-xl font-bold">링크</div>
           <a
             href="https://github.com/paringparing/twitch-chosung"
             target="_blank"
             rel="noreferrer"
             >GitHub</a
           >
+          <a
+            href="https://morrc.notion.site/bb1326138ff348829a045cd3c87a5975"
+            target="_blank"
+            rel="noreferrer"
+            >Notion</a
+          >
+          <a
+            href="https://forms.gle/KcNTRyAhbYWZf69P9"
+            target="_blank"
+            rel="noreferrer"
+            >단어 / 주제 추천</a
+          >
         </div>
-        <div>
-          <div class="text-xl font-bold">Progress</div>
+        <div class="flex flex-col">
+          <div class="text-xl font-bold">개발</div>
           <a
             href="https://morrc.notion.site/b81c7728f1614ae79a6ea21565a4bf56?v=82a061495a334726b4311e9a289f459a"
             target="_blank"
             rel="noreferrer"
-            >Tracking Board</a
+            >트래킹보드</a
           >
         </div>
       </div>
