@@ -70,6 +70,9 @@ export default defineComponent({
       intro: null as IntroJs | null,
     }
   },
+  beforeUnmount() {
+    this.intro?.removeHints()
+  },
   mounted() {
     const intro = (this.intro = introJs().addHints())
     for (let i = 0; i < 2; i++) {

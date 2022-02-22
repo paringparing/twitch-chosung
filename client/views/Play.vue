@@ -8,8 +8,8 @@
       <div class="chat" v-if="showChat">
         <div v-for="i in chat" :class="{ correct: i.correct, item: true }">
           <span v-if="i.percentage !== undefined">{{ i.percentage }}%</span>
-          <span>{{ i.state['display-name'] ?? i.state.username }}</span>
-          <span>{{ i.chat }}</span>
+          &lt;{{ i.state['display-name'] ?? i.state.username }}&gt; &nbsp;
+          {{ i.chat }}
         </div>
       </div>
       <div class="text-6xl font-black">
@@ -320,11 +320,7 @@ export default defineComponent({
   top: 0;
 
   width: 300px;
-  overflow: hidden;
   align-items: stretch;
-
-  max-height: 300px;
-  height: 100%;
 
   display: flex;
 
