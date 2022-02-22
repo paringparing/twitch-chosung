@@ -100,7 +100,7 @@ export default defineComponent({
       introJs()
         .addStep({
           intro:
-            '"초성 퀴즈"는 트위치 채팅으로 플레이하는 방송용 미니게임 입니다. https://bit.ly/3HbTjDI',
+            '"초성 퀴즈"는 트위치 채팅으로 플레이하는 방송용 미니게임 입니다. 설명서 https://bit.ly/3HbTjDI',
         })
         .addStep({
           intro:
