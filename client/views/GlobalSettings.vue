@@ -30,6 +30,8 @@
             <div
               @click="openPopup"
               class="bg-green-500 hover:brightness-90 active:brightness-75 transition-all text-center cursor-pointer rounded-md text-white px-4 py-2"
+              data-hint="스트리머용 팝업을 사용하면 플레이 중에 팝업창에서 단어를 확인할 수 있습니다."
+              data-hint-position="top-left"
             >
               스트리머용 팝업 열기
             </div>
@@ -50,6 +52,7 @@
 import { computed, defineComponent } from 'vue'
 import Header from '../components/Header.vue'
 import { useStore } from 'vuex'
+import introJs, { IntroJs } from 'intro.js'
 
 export default defineComponent({
   components: { Header },
@@ -61,6 +64,22 @@ export default defineComponent({
       showChat: computed(() => store.state.showChat),
       chatPercentageEnabled: computed(() => store.state.showPercentageInChat),
     }
+  },
+  data() {
+    return {
+      intro: null as IntroJs | null,
+    }
+  },
+  mounted() {
+    const intro = (this.intro = introJs().addHints())
+    for (let i = 0; i < 2; i++) {
+      if (localStorage['tutorial__settings.' + i]) {
+        intro.hideHint(i)
+      }
+    }
+    intro.onhintclose((stepId) => {
+      localStorage['tutorial__settings.' + stepId] = true
+    })
   },
   methods: {
     updateIsTwitchChatEnabled(e: InputEvent) {

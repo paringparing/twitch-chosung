@@ -2,11 +2,20 @@
   <div class="h-screen flex flex-col">
     <Header />
     <div class="px-8 flex-grow">
+      <div class="flex justify-end container mx-auto">
+        <div
+          @click="showTutorial"
+          class="border-2 w-8 h-8 flex justify-center items-center rounded-full cursor-pointer"
+        >
+          <font-awesome-icon icon="question" />
+        </div>
+      </div>
       <div
         class="container m-auto h-full flex items-center justify-center lg:justify-between gap-12 flex-col lg:flex-row p-24"
       >
         <router-link to="/custom">
           <div
+            ref="customButton"
             class="w-64 h-24 flex items-center justify-center rounded-md text-2xl font-bold border border-2"
           >
             커스텀
@@ -14,6 +23,7 @@
         </router-link>
         <router-link to="/suggest">
           <div
+            ref="suggestedButton"
             class="w-64 h-24 flex items-center justify-center rounded-md text-2xl font-bold border cursor-pointer border-2"
           >
             추천
@@ -71,12 +81,39 @@
 import Header from '../components/Header.vue'
 import { useStore } from 'vuex'
 import { defineComponent } from 'vue'
+import introJs from 'intro.js'
 
 export default defineComponent({
   components: { Header },
   setup() {
     const store = useStore()
     return { store }
+  },
+  mounted() {
+    if (localStorage.tutorialShown__main !== 'true') {
+      localStorage.tutorialShown__main = 'true'
+      this.showTutorial()
+    }
+  },
+  methods: {
+    showTutorial() {
+      introJs()
+        .addStep({
+          intro:
+            '"초성 퀴즈"는 트위치 채팅으로 플레이하는 방송용 미니게임 입니다.',
+        })
+        .addStep({
+          intro:
+            '추천 모드는 초성퀴즈 개발자가 추가한 단어들로 플레이 할 수 있는 플레이 방식입니다.',
+          element: this.$refs.suggestedButton as HTMLElement,
+        })
+        .addStep({
+          intro:
+            '커스텀 모드는 유저가 직접 단어를 추가해서 플레이 가능한 플레이 방식입니다.',
+          element: this.$refs.customButton as HTMLElement,
+        })
+        .start()
+    },
   },
 })
 </script>

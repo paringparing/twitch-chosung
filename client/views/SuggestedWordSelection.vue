@@ -5,14 +5,24 @@
       <div class="container mx-auto mt-4">
         <div class="text-4xl font-bold">추천 단어 설정</div>
         <div class="mt-2">
-          <div class="text-3xl">주제 선택</div>
+          <div
+            class="text-3xl"
+            data-hint="플레이할 주제를 선택해 주세요"
+            data-hint-position="top-left"
+          >
+            주제 선택
+          </div>
           <div class="flex gap-8 flex-wrap">
             <label v-for="item in suggested" :key="item.id">
               <input type="checkbox" @change="onUpdated(item)" />
               {{ item.title }}
             </label>
           </div>
-          <div class="flex gap-4">
+          <div
+            class="flex gap-4"
+            data-hint="플레이할 단어의 개수를 선택해주세요(선택한 주제에서 선택됩니다)"
+            data-hint-position="top-left"
+          >
             <span>개수</span>
             <input
               class="flex-grow"
@@ -44,6 +54,7 @@ import { Category } from '../types'
 import { createToast } from 'mosha-vue-toastify'
 import _ from 'lodash'
 import { useStore } from 'vuex'
+import introJs, { IntroJs } from 'intro.js'
 
 export default defineComponent({
   name: 'SuggestedWordSelection',
@@ -73,7 +84,22 @@ export default defineComponent({
     return {
       categories: [] as string[],
       count: 0,
+      intro: null as IntroJs | null,
     }
+  },
+  mounted() {
+    const intro = (this.intro = introJs().addHints())
+    for (let i = 0; i < 2; i++) {
+      if (localStorage['tutorial__suggestedSelection.' + i]) {
+        intro.hideHint(i)
+      }
+    }
+    intro.onhintclose((stepId) => {
+      localStorage['tutorial__suggestedSelection.' + stepId] = true
+    })
+  },
+  beforeUnmount() {
+    this.intro?.removeHints()
   },
   methods: {
     onUpdated(item: Category) {

@@ -4,6 +4,7 @@
   "license": "MIT",
   "devDependencies": {
     "@parcel/transformer-vue": "2.3.2",
+    "@types/intro.js": "^3.0.2",
     "@types/lodash": "^4.14.178",
     "@types/node": "^17.0.18",
     "@types/tmi.js": "^1.8.1",
@@ -24,6 +25,7 @@
     "@fortawesome/vue-fontawesome": "^3.0.0-5",
     "axios": "^0.25.0",
     "hangul-js": "^0.2.6",
+    "intro.js": "^5.0.0",
     "lodash": "^4.17.21",
     "mosha-vue-toastify": "^1.0.23",
     "passport-session": "^1.0.2",

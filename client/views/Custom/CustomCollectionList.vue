@@ -17,6 +17,8 @@
             <div
               class="border flex-grow p-4 rounded-md flex justify-center items-center cursor-pointer"
               @click="createItem"
+              data-hint="컬렉션 추가하기"
+              data-hint-position="top-left"
             >
               <font-awesome-icon icon="add" />
             </div>
@@ -29,6 +31,8 @@
             <div
               class="border flex-grow p-4 rounded-md flex justify-center items-center cursor-pointer"
               @click="$refs.fileSelect.click()"
+              data-hint="컬렉션 JSON 파일 업로드"
+              data-hint-position="top-left"
             >
               <font-awesome-icon icon="upload" />
             </div>
@@ -45,6 +49,7 @@ import Header from '../../components/Header.vue'
 import { WordSet } from '../../types'
 import { z } from 'zod'
 import { createToast } from 'mosha-vue-toastify'
+import introJs, { IntroJs } from 'intro.js'
 
 const itemSchema = z.object({
   title: z.string(),
@@ -58,13 +63,31 @@ const itemSchema = z.object({
 
 export default defineComponent({
   components: { Header },
-  mounted() {},
+  mounted() {
+    const intro = (this.intro = introJs().addHints())
+    for (let i = 0; i < 2; i++) {
+      if (localStorage['tutorial__customList.' + i]) {
+        intro.hideHint(i)
+      }
+    }
+    intro.onhintclose((stepId) => {
+      localStorage['tutorial__customList.' + stepId] = true
+    })
+  },
   computed: {
     collectionList() {
       return (
         localStorage.wordSet ? JSON.parse(localStorage.wordSet) : []
       ) as WordSet[]
     },
+  },
+  beforeUnmount() {
+    this.intro?.removeHints()
+  },
+  data() {
+    return {
+      intro: null as IntroJs | null,
+    }
   },
   methods: {
     createItem() {
