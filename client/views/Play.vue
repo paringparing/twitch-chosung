@@ -15,7 +15,11 @@
       <div class="text-6xl font-black">
         {{ currentTurn + 1 }} / {{ wordSet.length }} 라운드
       </div>
-      <div class="flex mt-8 border-2 border-black">
+      <div
+        class="flex mt-8 border-2 border-black"
+        data-hint="글자를 클릭해 해당 글자 보기"
+        data-hint-position="top-left"
+      >
         <div
           class="border border-4 border-black w-32 h-32 flex font-bold items-center justify-center text-8xl cursor-pointer"
           @click="showChar(parseInt(i))"
@@ -102,6 +106,7 @@ import Hangul from 'hangul-js'
 import { History } from '../store'
 import { event } from 'vue-gtag'
 import { getPopupWindow } from '../utils/popup'
+import introJs, { IntroJs } from 'intro.js'
 
 const correctSound = new Audio(
   // @ts-ignore
@@ -147,6 +152,7 @@ export default defineComponent({
         percentage?: number
       }[],
       shownChars: [] as number[],
+      intro: null as IntroJs | null,
     }
   },
   mounted() {
@@ -157,6 +163,17 @@ export default defineComponent({
     }
     this.tmi.on('message', this.onChat)
     this.ready = true
+    this.$nextTick(() => {
+      const intro = (this.intro = introJs().addHints())
+      for (let i = 0; i < 1; i++) {
+        if (localStorage['tutorial__play.' + i]) {
+          intro.hideHint(i)
+        }
+      }
+      intro.onhintclose((stepId) => {
+        localStorage['tutorial__play.' + stepId] = true
+      })
+    })
     getPopupWindow()?.dispatchEvent(
       new CustomEvent('state_changed', {
         detail: { action: 'set_word', value: this.currentWord },
