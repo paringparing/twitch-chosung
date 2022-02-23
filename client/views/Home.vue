@@ -100,7 +100,8 @@ export default defineComponent({
       introJs()
         .addStep({
           intro:
-            '"초성 퀴즈"는 트위치 채팅으로 플레이하는 방송용 미니게임 입니다.  설명서 https://bit.ly/3HbTjDI 한번씩 봐주세요!',
+            '<div>"초성 퀴즈"는 트위치 채팅으로 플레이하는 방송용 미니게임 입니다.</div>' +
+            '<div><a href="https://bit.ly/3HbTjDI" target="_blank" rel="noreferrer" class="text-blue-400">설명서</a> 한번씩 봐주세요!</div>',
         })
         .addStep({
           intro:
@@ -117,3 +118,10 @@ export default defineComponent({
   },
 })
 </script>
+
+<style>
+.introjs-tooltip.introjs-floating {
+  max-width: unset;
+  min-width: 360px;
+}
+</style>
