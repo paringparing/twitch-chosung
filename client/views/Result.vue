@@ -3,7 +3,7 @@
     <Header />
     <div class="px-8">
       <div class="container mx-auto">
-        <div class="text-3xl mb-2 font-bold">순위</div>
+        <div class="text-3xl mb-2 font-bold">순위 - 오타 수정 : https://forms.gle/KcNTRyAhbYWZf69P9</div>
         <table
           class="table-auto border divide-black divide-opacity-10 divide-y w-full"
         >
