@@ -93,6 +93,21 @@
       </div>
     </div>
   </div>
+  <div class="border-t p-4">
+      <div class="flex gap-4 items-center">
+        <div class="text-lg font-bold">초성 퀴즈</div>
+        <div class="bg-black bg-opacity-10 h-1 rounded-full w-4" />
+        <a
+          href="https://forms.gle/KcNTRyAhbYWZf69P9"
+          rel="noreferrer"
+          target="_blank"
+          >https://forms.gle/KcNTRyAhbYWZf69P9 문의 하는 곳</a
+        >
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
 </template>
 
 <script lang="ts">
