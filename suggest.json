@@ -2,7 +2,7 @@
     {
       "id": "broadcast",
       "title": "방송",
-      "description": "test",
+      "description": "☞ 트위치에 관련된 문제들이 나옵니다.",
       "words": [
         {
           "word": "트위치",
@@ -93,6 +93,7 @@
     {
       "id": "fruit",
       "title": "과일",
+      "description": "☞ 네이버 블로그를 참조하여 만들었습니다.",
       "words": [
         {
           "word": "사과",
@@ -183,6 +184,7 @@
     {
       "id": "wiindeul",
       "title": "위인들",
+      "description": "☞ 나무위키에서 목록을 참조하여 만들었습니다.",
       "words": [
         {
           "word": "단군",
@@ -521,6 +523,7 @@
     {
       "id": "Program",
       "title": "방송 프로그램",
+      "description": "☞ 위키백과를 참조하여 만들었습니다.",
       "words": [
         {
           "word": "아침마당",
@@ -755,6 +758,7 @@
     {
       "id": "animation",
       "title": "애니메이션",
+      "description": "☞ 네이버 블로그 및 넷플릭스를 참조하였습니다.",
       "words": [
         {
           "word": "강철의 연금술사",
@@ -1201,6 +1205,7 @@
     {
       "id": "movie",
       "title": "영화",
+      "description": "☞ 위키 백과 순위를 참조하였습니다.",
       "words": [
         {
           "word": "클래식",
@@ -1427,6 +1432,7 @@
     {
       "id": "leagueoflegends",
       "title": "롤 캐릭터",
+      "description": "☞ 롤 공식 사이트를 참조하였습니다.",
       "words": [
         {
           "word": "가렌",
@@ -2069,6 +2075,7 @@
     {
       "id": "snack",
       "title": "과자",
+      "description": "☞ 위키백과를 참조하여 만들었습니다.",
       "words": [
         {
           "word": "감자링",
@@ -2279,6 +2286,7 @@
     {
       "id": "country",
       "title": "국가",
+      "description": "☞ 나무위키를 참조하여 만들었습니다.",
       "words": [
         {
           "word": "한국",
@@ -3061,6 +3069,7 @@
     {
       "id": "game",
       "title": "게임",
+      "description": "☞ 나무위키를 참조하여 만들었습니다.",
       "words": [
         {
           "word": "마인크래프트",
@@ -3259,6 +3268,7 @@
     {
       "id": "word",
       "title": "단어",
+      "description": "☞ 단어는 다른 주제와 같이 하면 재미있습니다.",
       "words": [
         {
           "word": "새벽녘",
@@ -3425,6 +3435,7 @@
     {
       "id": "browser",
       "title": "브라우저",
+      "description": "☞ 컴퓨터 브라우저 입니다.",
       "words": [
         {
           "word": "익스플로러",
@@ -3459,6 +3470,7 @@
     {
       "id": "music",
       "title": "노래",
+      "description": "☞ 2022.02.21 멜론차트를 참조하였습니다.",
       "words": [
         {
           "word": "사랑은 늘 도망가",
