@@ -12,11 +12,14 @@
           >
             주제 선택
           </div>
-          <div class="flex gap-8 flex-wrap">
-            <label v-for="item in suggested" :key="item.id">
-              <input type="checkbox" @change="onUpdated(item)" />
-              {{ item.title }}
-            </label>
+          <div class="grid md:grid-cols-3 gap-2">
+            <div v-for="item in suggested" :key="item.id">
+              <label>
+                <input type="checkbox" @change="onUpdated(item)" />
+                {{ item.title }}
+              </label>
+              <div v-if="item.description">{{ item.description }}</div>
+            </div>
           </div>
           <div
             class="flex gap-4"
