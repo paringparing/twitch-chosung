@@ -2,6 +2,7 @@
     {
       "id": "broadcast",
       "title": "방송",
+      "description": "test",
       "words": [
         {
           "word": "트위치",
