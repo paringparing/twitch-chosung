@@ -42,6 +42,12 @@
           >1.0.3 패치노트</a
         >
       </div>
+      <a
+        href="https://csquiz.link"
+        class="absolute top-4 left-1/2 -translate-x-1/2 bg-green-500 text-white py-2 px-4 rounded-md hover:-translate-y-1 hover:shadow-md transition-all"
+      >
+        V2 출시! 보러가기
+      </a>
       <div class="pt-4 flex gap-12 flex-wrap">
         <div class="flex flex-col">
           <div class="text-xl font-bold">링크</div>
