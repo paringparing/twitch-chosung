@@ -35,4 +35,4 @@ jobs:
           publish_dir: ./dist
           github_token: ${{secrets.GITHUB_TOKEN}}
           publish_branch: gh-pages
-          cname: quiz.morrc.xyz
+          cname: csquiz.link
