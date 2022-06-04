@@ -100,10 +100,10 @@ export default defineComponent({
       introJs()
         .addStep({
           intro:
-            '<div>"초성 퀴즈"는 트위치 채팅으로 플레이하는 방송용 미니게임 입니다.</div>' +
+            '<div>"초성 퀴즈"는 트위치 채팅으로 플레이하는 방송용 미니게임 입니다. [ 신버전은 개발이 중단되고 취소되었습니다. ]</div>' +
             '<div><a href="https://bit.ly/3HbTjDI" target="_blank" rel="noreferrer" class="text-blue-400">설명서</a> 한번씩 봐주세요!</div>'+
             '<div>제작자</div>'+
-            '<div><a href="https://twitch.tv/morrc_kr" rel="noreferrer" class="text-blue-400">뭐_렉</a>, <a href="https://www.twitch.tv/pikokr" target="_blank" rel="noreferrer" class="text-blue-400">파링</a>, <a href="https://www.twitch.tv/system_manager" target="_blank" rel="noreferrer" class="text-blue-400">초성_퀴즈</a></div>',
+            '<div><a href="https://twitch.tv/morrc_kr" rel="noreferrer" class="text-blue-400">뭐_렉</a>, <a href="https://www.twitch.tv/pikokr" target="_blank" rel="noreferrer" class="text-blue-400">파링</a></div>',
         })
         .addStep({
           intro:
